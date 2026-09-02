@@ -1,10 +1,19 @@
 import { NestFactory } from '@nestjs/core';
 import { OrderServiceModule } from './order-service.module';
 import { ConfigService } from '@nestjs/config';
+import { ValidationPipe } from '@nestjs/common';
 
 async function bootstrap() {
   const app = await NestFactory.create(OrderServiceModule);
   const configService = app.get(ConfigService);
+
+  app.useGlobalPipes(
+    new ValidationPipe({
+      whitelist: true,
+      forbidNonWhitelisted: true,
+      transform: true,
+    }),
+  );
 
   const port = configService.get<number>('ORDER_SERVICE_PORT');
 
