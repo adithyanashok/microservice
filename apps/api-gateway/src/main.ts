@@ -1,6 +1,7 @@
 import { NestFactory } from '@nestjs/core';
 import { ApiGatewayModule } from './api-gateway.module';
 import { ValidationPipe } from '@nestjs/common';
+import { HttpExceptionFilter } from '@app/common';
 
 async function bootstrap() {
   const app = await NestFactory.create(ApiGatewayModule);
@@ -12,6 +13,9 @@ async function bootstrap() {
       transform: true,
     }),
   );
+
+  app.useGlobalFilters(new HttpExceptionFilter());
+
   await app.listen(process.env.port ?? 3000);
 }
 bootstrap();

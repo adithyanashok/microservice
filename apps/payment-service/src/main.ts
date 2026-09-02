@@ -2,6 +2,7 @@ import { NestFactory } from '@nestjs/core';
 import { PaymentServiceModule } from './payment-service.module';
 import { ConfigService } from '@nestjs/config';
 import { ValidationPipe } from '@nestjs/common';
+import { HttpExceptionFilter } from '@app/common';
 
 async function bootstrap() {
   const app = await NestFactory.create(PaymentServiceModule);
@@ -14,6 +15,8 @@ async function bootstrap() {
       transform: true,
     }),
   );
+
+  app.useGlobalFilters(new HttpExceptionFilter());
 
   const port = configService.get<number>('PAYMENT_SERVICE_PORT');
 
