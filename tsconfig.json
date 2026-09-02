@@ -22,12 +22,8 @@
     "strictBindCallApply": false,
     "noFallthroughCasesInSwitch": false,
     "paths": {
-      "nest g library database/config": [
-        "libs/config/src"
-      ],
-      "nest g library database/config/*": [
-        "libs/config/src/*"
-      ]
+      "@app/config": ["libs/config/src"],
+      "@app/config/*": ["libs/config/src/*"]
     }
   }
 }
