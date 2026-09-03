@@ -3,6 +3,7 @@ import { OrderServiceModule } from './order-service.module';
 import { ConfigService } from '@nestjs/config';
 import { ValidationPipe } from '@nestjs/common';
 import { HttpExceptionFilter } from '@app/common';
+import { Logger } from 'nestjs-pino';
 
 async function bootstrap() {
   const app = await NestFactory.create(OrderServiceModule);
@@ -15,6 +16,8 @@ async function bootstrap() {
       transform: true,
     }),
   );
+
+  app.useLogger(app.get(Logger));
 
   app.useGlobalFilters(new HttpExceptionFilter());
 

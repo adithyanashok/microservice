@@ -26,7 +26,10 @@
       "@app/common/*": ["libs/common/src/*"],
 
       "@app/config": ["libs/config/src"],
-      "@app/config/*": ["libs/config/src/*"]
+      "@app/config/*": ["libs/config/src/*"],
+
+      "@app/logger": ["libs/logger/src"],
+      "@app/logger/*": ["libs/logger/src/*"]
     }
   }
 }

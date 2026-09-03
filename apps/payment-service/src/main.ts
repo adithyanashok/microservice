@@ -3,10 +3,13 @@ import { PaymentServiceModule } from './payment-service.module';
 import { ConfigService } from '@nestjs/config';
 import { ValidationPipe } from '@nestjs/common';
 import { HttpExceptionFilter } from '@app/common';
+import { Logger } from 'nestjs-pino';
 
 async function bootstrap() {
   const app = await NestFactory.create(PaymentServiceModule);
   const configService = app.get(ConfigService);
+
+  app.enableShutdownHooks();
 
   app.useGlobalPipes(
     new ValidationPipe({
@@ -15,6 +18,8 @@ async function bootstrap() {
       transform: true,
     }),
   );
+
+  app.useLogger(app.get(Logger));
 
   app.useGlobalFilters(new HttpExceptionFilter());
 
