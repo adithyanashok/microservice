@@ -9,7 +9,7 @@ async function bootstrap() {
     bufferLogs: true,
   });
 
-  app.useLogger(app.get(Logger));
+  app.enableShutdownHooks();
 
   app.useGlobalPipes(
     new ValidationPipe({
@@ -18,6 +18,8 @@ async function bootstrap() {
       transform: true,
     }),
   );
+
+  app.useLogger(app.get(Logger));
 
   app.useGlobalFilters(new HttpExceptionFilter());
 

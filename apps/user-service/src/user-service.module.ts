@@ -5,8 +5,9 @@ import { AppConfigModule } from '@app/config';
 import { AppLoggerModule } from '@app/logger';
 import { RequestIdMiddleware } from '@app/common';
 import { HealthModule } from './health/health.module';
+import { CommonModule } from '@app/common/common.module';
 @Module({
-  imports: [AppConfigModule, AppLoggerModule, HealthModule],
+  imports: [AppConfigModule, AppLoggerModule, HealthModule, CommonModule],
   controllers: [UserServiceController],
   providers: [UserServiceService],
 })

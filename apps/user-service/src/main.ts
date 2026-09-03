@@ -3,6 +3,7 @@ import { UserServiceModule } from './user-service.module';
 import { ConfigService } from '@nestjs/config';
 import { ValidationPipe } from '@nestjs/common';
 import { HttpExceptionFilter } from '@app/common';
+import { Logger } from 'nestjs-pino';
 
 async function bootstrap() {
   const app = await NestFactory.create(UserServiceModule);
@@ -15,6 +16,10 @@ async function bootstrap() {
       transform: true,
     }),
   );
+
+  app.useLogger(app.get(Logger));
+
+  app.enableShutdownHooks();
 
   app.useGlobalFilters(new HttpExceptionFilter());
 
