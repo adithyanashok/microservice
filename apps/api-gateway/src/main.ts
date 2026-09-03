@@ -2,9 +2,14 @@ import { NestFactory } from '@nestjs/core';
 import { ApiGatewayModule } from './api-gateway.module';
 import { ValidationPipe } from '@nestjs/common';
 import { HttpExceptionFilter } from '@app/common';
+import { Logger } from 'nestjs-pino';
 
 async function bootstrap() {
-  const app = await NestFactory.create(ApiGatewayModule);
+  const app = await NestFactory.create(ApiGatewayModule, {
+    bufferLogs: true,
+  });
+
+  app.useLogger(app.get(Logger));
 
   app.useGlobalPipes(
     new ValidationPipe({
